@@ -1,15 +1,30 @@
-import { useCallback, useState } from 'react'
-import { AiOutlineClose } from 'react-icons/ai'
-import { BiLogoFacebookCircle, BiLogoGoogle } from 'react-icons/bi'
-import { IoMailSharp, IoLockClosedSharp } from 'react-icons/io5'
-import { Link } from 'react-router-dom'
-import { LoginSocialFacebook } from 'reactjs-social-login'
+import { useCallback, useState } from 'react';
+import { GoogleLogin } from 'react-google-login'; // Import GoogleLogin
+import { AiOutlineClose } from 'react-icons/ai';
+import { BiLogoFacebookCircle, BiLogoGoogle } from 'react-icons/bi';
+import { IoLockClosedSharp, IoMailSharp } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS
+import { LoginSocialFacebook } from 'reactjs-social-login';
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   })
+  const responseGoogle = (response: any) => {
+    if (response.profileObj) {
+     // Handle Google login failure here.
 
+      console.log('Google login failed', response);
+      alert('Google login failed');
+    } else {
+       // Handle the successful Google login here.
+      
+      console.log('Google login successful', response);
+      alert('Logged in via Google');
+    }
+  };
   const [error, setError] = useState('')
 
   const handleChange = useCallback(
@@ -105,16 +120,28 @@ const Login = () => {
         <p className='text-center text-white text-sm py-5 font-medium'>
           Don't have an account? <Link to='/register'>Register</Link>
         </p>
-        <button
-          className='block bg-transparent text-white border-2 border-white w-full rounded-3xl py-2 font-medium mb-3 '
-          type='button'
-        >
-          <div className='flex justify-center items-center gap-1'>
-            <BiLogoGoogle />
-            Login with Google
-          </div>
-        </button>
-
+        {/* login by google */}
+        <GoogleLogin
+          clientId="1085521890305-4rmqk0c1n6h1rnr7b1dohs49dgokf5jq.apps.googleusercontent.com" // Replace with your Google Client ID
+          buttonText="Login with Google"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+          render={renderProps => (
+            <button
+              onClick={renderProps.onClick}
+              disabled={renderProps.disabled}
+              className="block bg-transparent text-white border-2 border-white w-full rounded-3xl py-2 font-medium mb-3"
+              type="button"
+            >
+              <div className="flex justify-center items-center gap-1">
+                <BiLogoGoogle />
+                Login with Google
+              </div>
+            </button>
+          )}
+        />
+        {/* login by facebook */}
         <LoginSocialFacebook appId='4285186445038875' onResolve={handleLogin} onReject={handleLoginFailure}>
           <button
             className='block bg-transparent text-white border-2 border-white w-full rounded-3xl py-2 font-medium mb-2'

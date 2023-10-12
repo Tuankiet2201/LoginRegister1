@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <div className='fixed py-5 px-16 flex justify-between items-center w-full'>
       <Link to='/'>
-        <img src='/public/logo.png' alt='logo' width={80} height={80} />
+        <img src='/public/logo.png' alt='logo' width={100} height={100} />
       </Link>
       <div className='text-white font-medium'>
         <Link to='/' className='px-5'>
