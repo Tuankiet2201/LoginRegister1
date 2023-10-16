@@ -4,57 +4,46 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { BiLogoFacebookCircle, BiLogoGoogle } from 'react-icons/bi';
 import { IoLockClosedSharp, IoMailSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS
 import { LoginSocialFacebook } from 'reactjs-social-login';
 
-const Login = () => {
+function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
-  })
-  const responseGoogle = (response: any) => {
-    if (response.profileObj) {
-     // Handle Google login failure here.
+  });
 
-      console.log('Google login failed', response);
-      alert('Google login failed');
-    } else {
-       // Handle the successful Google login here.
-      
-      console.log('Google login successful', response);
-      alert('Logged in via Google');
-    }
-  };
-  const [error, setError] = useState('')
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState(''); // Add success message state
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target
-      setFormData({ ...formData, [name]: value })
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
     },
     [formData]
-  )
+  );
 
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
+      event.preventDefault();
       if (formData.email === 'kietnt@gmail.com' && formData.password === 'Password123@@') {
-        setError('')
-        alert('Success')
+        setError('');
+        setSuccessMessage('Login successful'); // Set success message here
       } else {
-        setError('Email or password is invalid')
+        setError('Email or password is invalid');
       }
     },
     [formData]
-  )
+  );
   const handleLogin = (response: any) => {
-    alert('Logged in success')
-    console.log(response)
-  }
+    setSuccessMessage('Logged in successfully'); // Set success message here
+    console.log(response);
+  };
+
 
   const handleLoginFailure = (error: any) => {
-    console.log(error)
-  }
+    console.log(error);
+  };
 
   return (
     <div className='w-screen h-screen bg-login bg-center bg-cover flex justify-center items-center'>
@@ -64,6 +53,7 @@ const Login = () => {
       >
         <AiOutlineClose className='absolute top-0 right-0 bg-white w-8 h-8 rounded-bl-lg rounded-tr-sm p-1' />
         <p className='text-4xl font-bold text-gray-400 mb-8'>Login</p>
+        {successMessage && <p className='text-green-500 mb-2'>{successMessage}</p>} {/* Display success message */}
         <div className='relative mt-5'>
           <input
             type='text'
@@ -72,8 +62,7 @@ const Login = () => {
             className='block rounded-t-lg pb-2.5 pt-5 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 peer pr-6'
             placeholder=' '
             onChange={handleChange}
-            value={formData.email}
-          />
+            value={formData.email} />
           <label
             htmlFor='email'
             className='absolute text-sm text-white duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
@@ -91,8 +80,7 @@ const Login = () => {
             className='block rounded-t-lg pb-2.5 pt-5 w-full text-sm text-white bg-transparent border-0 border-b-2 border-white appearance-none focus:outline-none focus:ring-0 peer pr-6'
             placeholder=' '
             onChange={handleChange}
-            value={formData.password}
-          />
+            value={formData.password} />
           <label
             htmlFor='password'
             className='absolute text-sm text-white duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4'
@@ -122,10 +110,10 @@ const Login = () => {
         </p>
         {/* login by google */}
         <GoogleLogin
-          clientId="1085521890305-4rmqk0c1n6h1rnr7b1dohs49dgokf5jq.apps.googleusercontent.com" // Replace with your Google Client ID
+          clientId="602153330253-agc9shi1m06u65aagl32cbeh8pkh1lqf.apps.googleusercontent.com" // Replace with your Google Client ID
           buttonText="Login with Google"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
+          onSuccess={handleLogin}
+          onFailure={handleLoginFailure}
           cookiePolicy={'single_host_origin'}
           render={renderProps => (
             <button
@@ -141,8 +129,13 @@ const Login = () => {
             </button>
           )}
         />
+ 
+ 
         {/* login by facebook */}
-        <LoginSocialFacebook appId='4285186445038875' onResolve={handleLogin} onReject={handleLoginFailure}>
+        <LoginSocialFacebook
+          appId='210431665284066'
+          onResolve={handleLogin}
+          onReject={handleLoginFailure}>
           <button
             className='block bg-transparent text-white border-2 border-white w-full rounded-3xl py-2 font-medium mb-2'
             type='button'
@@ -155,7 +148,7 @@ const Login = () => {
         </LoginSocialFacebook>
       </form>
     </div>
-  )
+  );
 }
 
 export default Login
