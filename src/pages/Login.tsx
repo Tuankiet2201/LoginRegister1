@@ -1,10 +1,9 @@
 import { useCallback, useState } from 'react';
-import { GoogleLogin } from 'react-google-login'; // Import GoogleLogin
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiLogoFacebookCircle, BiLogoGoogle } from 'react-icons/bi';
 import { IoLockClosedSharp, IoMailSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import { LoginSocialFacebook } from 'reactjs-social-login';
+import { LoginSocialFacebook, LoginSocialGoogle } from 'reactjs-social-login';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -109,27 +108,21 @@ function Login() {
           Don't have an account? <Link to='/register'>Register</Link>
         </p>
         {/* login by google */}
-        <GoogleLogin
-          clientId="602153330253-agc9shi1m06u65aagl32cbeh8pkh1lqf.apps.googleusercontent.com" // Replace with your Google Client ID
-          buttonText="Login with Google"
-          onSuccess={handleLogin}
-          onFailure={handleLoginFailure}
-          cookiePolicy={'single_host_origin'}
-          render={renderProps => (
-            <button
-              onClick={renderProps.onClick}
-              disabled={renderProps.disabled}
-              className="block bg-transparent text-white border-2 border-white w-full rounded-3xl py-2 font-medium mb-3"
-              type="button"
-            >
+       
+  <LoginSocialGoogle
+  client_id='602153330253-agc9shi1m06u65aagl32cbeh8pkh1lqf.apps.googleusercontent.com'
+  onResolve={handleLogin}
+  onReject={handleLoginFailure}>
+  <button
+  className="block bg-transparent text-white border-2 border-white w-full rounded-3xl py-2 font-medium mb-3"
+              type="button">
               <div className="flex justify-center items-center gap-1">
                 <BiLogoGoogle />
                 Login with Google
               </div>
-            </button>
-          )}
-        />
- 
+  </button>
+  
+  </LoginSocialGoogle>
  
         {/* login by facebook */}
         <LoginSocialFacebook
