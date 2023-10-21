@@ -1657,6 +1657,11 @@ react-oauth@^0.0.1:
   resolved "https://registry.npmjs.org/react-oauth/-/react-oauth-0.0.1.tgz"
   integrity sha512-vbzUrZzKQLILhFuvyelvpyOh9coi7/h6ZkhOEG89SYamviWaXKM3PKBiXMbLsRxf0QBV8CMvyZhtvmo0xL5Q0g==
 
+react-popup-manager@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/react-popup-manager/-/react-popup-manager-2.1.4.tgz#6a1bd641ba750d533458a0b9703a6bfbd9f07e5d"
+  integrity sha512-Fl6OJZX08ZyEM/4JatpEXRp6Pd3spaQQHPW4Nt2uiOvUUoFN7fmf82aWfxcuRW2c+MUzSrPWDMUIfAlrk3VN0A==
+
 react-router-dom@^6.16.0:
   version "6.16.0"
   resolved "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.16.0.tgz"

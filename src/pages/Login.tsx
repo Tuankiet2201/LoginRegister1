@@ -46,6 +46,7 @@ function Login() {
 
   return (
     <div className='w-screen h-screen bg-login bg-center bg-cover flex justify-center items-center'>
+      
       <form
         onSubmit={handleSubmit}
         className='border-2 border-white rounded-lg py-3 px-10 relative backdrop-blur-sm min-w-[350px]'
